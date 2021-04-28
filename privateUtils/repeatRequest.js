@@ -29,7 +29,10 @@ repeatRequest.prototype.removeRequest = function(axiosConfig) {
 }
 
 repeatRequest.prototype.generateString = function(axiosConfig) {
-  const { method, url, params, data } = axiosConfig
+  let { baseURL, method, url, params, data } = axiosConfig
+  if(url.indexOf(baseURL) === -1) {
+    url = baseURL + url
+  }
   return [method, url, JSON.stringify(params), JSON.stringify(data)].join('&')
 }
 
